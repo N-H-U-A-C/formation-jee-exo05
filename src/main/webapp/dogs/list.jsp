@@ -1,5 +1,5 @@
-<%@ page import="dev.cb.dogs.model.Dog" %>
-<jsp:useBean id="dogs" type="java.util.ArrayList<dev.cb.dogs.model.Dog>" scope="request"/>
+<%@ page import="dev.cb.dogs.business.model.Dog" %>
+<jsp:useBean id="dogs" type="java.util.ArrayList<dev.cb.dogs.business.model.Dog>" scope="request"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>

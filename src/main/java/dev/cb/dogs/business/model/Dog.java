@@ -1,12 +1,17 @@
-package dev.cb.dogs.model;
+package dev.cb.dogs.business.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.time.LocalDate;
 
+@Entity
 public class Dog {
 
-    // TODO to delete when hibernate implemented
-    static public Long dogCount = 0L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String breed;
@@ -16,13 +21,11 @@ public class Dog {
     }
 
     public Dog(String name, String breed, LocalDate birthDate) {
-        this.id = ++dogCount;
         this.name = name;
         this.breed = breed;
         this.birthDate = birthDate;
     }
 
-    // to be used with hibernate
 //    public Dog(Long id, String name, String breed, LocalDate birthDate) {
 //        this(name, breed, birthDate);
 //        this.id = id;

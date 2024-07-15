@@ -1,6 +1,7 @@
 package dev.cb.dogs.controller;
 
-import dev.cb.dogs.model.Dog;
+import dev.cb.dogs.business.model.Dog;
+import dev.cb.dogs.business.service.DogService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,16 +12,16 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet(name = "dogServlet", value = "/dog/*")
 public class DogServlet extends HttpServlet {
 
-    private List<Dog> dogs;
+    private DogService dogService;
 
     @Override
     public void init() {
-        dogs = new ArrayList<>();
-//        dogs.add(new Dog("Médor", "Pug", LocalDate.parse("2020-10-10")));
+        dogService = new DogService();
     }
 
     @Override
@@ -41,14 +42,12 @@ public class DogServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String name = req.getParameter("inputName");
         String breed = req.getParameter("inputBreed");
         LocalDate birthDate = LocalDate.parse(req.getParameter("inputBirthDate"));
-        Dog Dog = new Dog(name, breed, birthDate);
-        dogs.add(Dog);
-
-        displayList(req, resp);
+        dogService.save(new Dog(name, breed, birthDate));
+        resp.sendRedirect("list");
     }
 
     private void displayForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -56,12 +55,14 @@ public class DogServlet extends HttpServlet {
     }
 
     private void displayDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        req.setAttribute("dog", dogs.get(id - 1));
+        long id = Long.parseLong(req.getParameter("id"));
+        Optional<Dog> optionalDog = dogService.getById(id);
+        req.setAttribute("dog", optionalDog.orElse(new Dog("Error", "Error", LocalDate.now())));
         getServletContext().getRequestDispatcher("/dogs/detail.jsp").forward(req, resp);
     }
 
     private void displayList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Dog> dogs = dogService.getAll();
         req.setAttribute("dogs", dogs);
         getServletContext().getRequestDispatcher("/dogs/list.jsp").forward(req, resp);
     }

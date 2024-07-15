@@ -5,7 +5,7 @@
   <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Welcome to wouaf app!" %></h1>
+<h1><%= "Welcome to the wouaf app!" %></h1>
 <br/>
 <a href="${pageContext.request.contextPath}/dog/list">View all dogs</a>
 </body>
