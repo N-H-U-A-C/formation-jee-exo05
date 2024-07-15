@@ -5,8 +5,8 @@
   <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Hello World!" %></h1>
+<h1><%= "Welcome to wouaf app!" %></h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<a href="${pageContext.request.contextPath}/dog/list">View all dogs</a>
 </body>
 </html>
