@@ -20,6 +20,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Breed</th>
                 <th scope="col">Birthdate</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -33,6 +34,8 @@
                 </td>
                 <td><%=dog.getBirthDate()%>
                 </td>
+                <td><a href="${pageContext.request.contextPath}/dog/detail?id=<%=dog.getId()%>" class="btn btn-primary">Detail</a>
+                </td>
             </tr>
             <%}%>
             </tbody>
@@ -41,7 +44,7 @@
         <p>Dogs list is empty!</p>
         <%}%>
         <br/>
-        <a href="${pageContext.request.contextPath}/dog/add" class="btn">Add a Dog</a>
+        <a href="${pageContext.request.contextPath}/dog/add" class="btn btn-primary">Add a Dog</a>
     </div>
 </main>
 </body>

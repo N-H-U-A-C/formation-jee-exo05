@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -10,7 +9,7 @@
     <div class="container">
         <h1>- Add a Dog -</h1>
         <br/>
-        <form action="/dog/add" method="post">
+        <form action="${pageContext.request.contextPath}/dog/add" method="post">
             <div class="mb-3">
                 <label for="inputName" class="form-label">Name</label>
                 <input type="text" class="form-control" id="inputName" name="inputName">
